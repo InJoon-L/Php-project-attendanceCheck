@@ -21,7 +21,7 @@ function makeDBConnection()
     return $db_conn;
 }
 
-// DBMS 날짜에 대한 출석상태 레코드 전환
+// DBMS 날짜에 대한 출석상태 레코드 변경
 function changeStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
 
@@ -30,7 +30,7 @@ function changeStatusRecordsFromTable($argObj) {
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
-        return  $result->fetch_all();
+        return  $result = 'update success';
     }
 
     $dbConn->close();
