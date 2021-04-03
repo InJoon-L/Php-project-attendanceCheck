@@ -41,12 +41,14 @@ function checkLoginRecordsFromTable($argObj) {
             break;
     }
 
-    $sql_stmt = "select $id, class_id, $userName from $tableName where email = \"$argObj->email\" 
-                && $pd = \"$argObj->password\"";
+    $sql_stmt = "select $pd from $tableName where email = '$argObj->email'";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
-        return  $result->fetch_all();
+        $result->fetch_all();
+        if(password_verify($argObj->password, $result[0])) {
+            return "login success";
+        }
     }
 
     $dbConn->close();
