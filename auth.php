@@ -1,3 +1,3 @@
 <?php
-require_once('db_conf.php');
+require_once('connDB.php');
 ?>
