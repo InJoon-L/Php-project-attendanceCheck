@@ -27,11 +27,12 @@ function checkLoginRecordsFromTable($argObj) {
             break;
     }
 
-    $sql_stmt = "select $pd from $tableName where email = '$argObj->email'";
+    $sql_stmt = "select * from $tableName where email = '$argObj->email'";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
         $result->fetch_all();
+        print_r($result);
         if(password_verify($argObj->password, $result[0])) {
             return "login success";
         }
