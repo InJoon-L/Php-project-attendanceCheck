@@ -44,7 +44,7 @@ function registerInsertRecordsFromTable($argObj) {
 
 $resData = registerInsertRecordsFromTable($req);
 
-$res = new Res(($resData != null ? true : false), $req);
+$res = new Res(($resData != null ? true : false), $resData);
 
 echo json_encode($res)
 
