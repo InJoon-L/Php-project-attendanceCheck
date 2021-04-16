@@ -9,7 +9,7 @@ function makeDBConnection()
     // DBMS 연결  실패 여부 검사
     if ($db_conn->connect_errno) {
         echo "Failed to connect to the MySQL Server";
-        exit(-1); // 시스템 종료 : PHP 엔진 번역 작업 중지, 프로그램 종료.
+        exit(-1); // 시스템 종료
     }
 
     return $db_conn;

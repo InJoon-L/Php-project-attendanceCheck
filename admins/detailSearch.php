@@ -10,7 +10,7 @@ function getStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
     //join을 이용해서 id에 맞는 이름끼리 묶어서 가져오자
     $sql_stmt = "select  from attendance_status where class_id = $argObj->class_id 
-                && date = \"$argObj->date\" && std_name = \"$argObj->std_name\"";
+                && date = \"$argObj->date\" && std_name = \"$argObj->std_name\ && std_id = \"$argObj->std_id\"";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();

@@ -8,7 +8,7 @@ $req = json_decode(file_get_contents('php://input'));
 // DBMS 날짜에 대한 출석상태 레코드 변경
 function changeStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
-
+    // where 수정할 것
     $sql_stmt = "update attendance_status set status = \"$argObj->status\" 
                 where std_id = $argObj->std_id && $argObj->class_id";
 
