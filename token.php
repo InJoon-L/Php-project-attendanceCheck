@@ -2,24 +2,23 @@
 require_once('./vendor/autoload.php');
 
 use \Firebase\JWT\JWT;
+
 // 하는 중 미완성
-function setToken() {
-    $secret_key = "YOUR_SECRET_KEY";
-    $issuer_claim = "THE_ISSUER"; // this can be the servername
-    $audience_claim = "THE_AUDIENCE";
+function setToken($id, $email) {
+    $secret_key = "secret";
+    $issuer_claim = "server"; // this can be the servername
+    $audience_claim = $id;
     $issuedat_claim = time(); // issued at
     $notbefore_claim = $issuedat_claim; //not before in seconds
     $expire_claim = $issuedat_claim + 7200; // expire time in seconds
     $token = array(
-        "iss" => $issuer_claim,
-        "aud" => $audience_claim,
-        "iat" => $issuedat_claim,
-        "nbf" => $notbefore_claim,
-        "exp" => $expire_claim,
+        "iss" => $issuer_claim, // 토큰 발급자
+        "aud" => $audience_claim, // 토큰 대상자
+        "iat" => $issuedat_claim, // 토큰 발급된 시간
+        "nbf" => $notbefore_claim, //토큰 활성 날짜
+        "exp" => $expire_claim, //토큰 만료시간
         "data" => array(
             "id" => $id,
-            "firstname" => $firstname,
-            "lastname" => $lastname,
             "email" => $email
         )
     );
@@ -32,12 +31,12 @@ function setToken() {
                 "expireAt" => $expire_claim
     );
 }
-// secret_key는 따로 관리할 것 
+
 function tokenCheck() {
-    $secret_key = "YOUR_SECRET_KEY";
+    $secret_key = "secret";
     $jwt = null;
     $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
-    $arr = explode(" ", $authHeader);
+    $arr = explode(".", $authHeader);
     
     if($jwt){
 

@@ -8,29 +8,29 @@ $req = json_decode(file_get_contents('php://input'));
 // DBMS 회원가입 레코드 삽입
 function registerInsertRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
-    $tableName = null;
-    $id = null;
-    $pd = null;
-    $userName = null;
-    $hashedPassword = password_hash($argObj->pd, PASSWORD_DEFAULT);
-    switch ($argObj->mode) {
-        case 'std':
-            $tableName = 'student';
-            $id = 'std_id';
-            $pd = 'std_password';
-            $userName = 'std_name';
-            break;
-        case 'pr':
-            $tableName = 'professor';
-            $id = 'pr_id';
-            $pd = 'pr_password';
-            $userName = 'pr_name';
-            break;
-    }
+    // $tableName = null;
+    // $id = null;
+    // $pd = null;
+    // $userName = null;
+    $hashedPassword = password_hash($argObj->password, PASSWORD_DEFAULT);
+    // switch ($argObj->mode) {
+    //     case 'std':
+    //         $tableName = 'student';
+    //         $id = 'std_id';
+    //         $pd = 'std_password';
+    //         $userName = 'std_name';
+    //         break;
+    //     case 'pr':
+    //         $tableName = 'professor';
+    //         $id = 'pr_id';
+    //         $pd = 'pr_password';
+    //         $userName = 'pr_name';
+    //         break;
+    // }
 
-    $sql_stmt = "INSERT INTO $tableName ($id, $userName, $pd, email, phone, class_id)
+    $sql_stmt = "INSERT INTO member (m_id, m_name, m_password, email, position, phone, class_id)
     VALUES({$argObj->id}, \"{$argObj->name}\", \"{$hashedPassword}\", \"{$argObj->email}\", \"{$argObj->phone}\", {$argObj->class_id})";
-    echo $sql_stmt;
+    // echo $sql_stmt;
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
         return $result;
