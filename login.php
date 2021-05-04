@@ -8,31 +8,13 @@ $req = json_decode(file_get_contents('php://input'));
 // DBMS 로그인 확인에 대한 레코드 반환
 function checkLoginRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
-    // $tableName = null;
-    // $id = null;
-    // $pd = null;
-    // $userName = null;
-    // switch ($argObj->mode) {
-    //     case 'std':
-    //         $tableName = 'student';
-    //         $id = 'std_id';
-    //         $pd = 'std_password';
-    //         $userName = 'std_name';
-    //         break;
-    //     case 'pr':
-    //         $tableName = 'professor';
-    //         $id = 'pr_id';
-    //         $pd = 'pr_password';
-    //         $userName = 'pr_name';
-    //         break;
-    // }
 
     $sql_stmt = "select * from member where email = '$argObj->email'";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
         $result->fetch_all();
-        print_r($result);
+        // print_r($result);
         if(password_verify($argObj->password, $result[0])) {
             return $result;
         }

@@ -8,9 +8,8 @@ $req = json_decode(file_get_contents('php://input'));
 // DBMS 날짜에 대한 출석상태 레코드 반환
 function getStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
-    //join을 이용해서 id에 맞는 이름끼리 묶어서 가져오자    
-    $sql_stmt = "select  from attendance_status where class_id = $argObj->class_id 
-                && date = \"$argObj->date\"";
+    // class id가 없으니 이게 막막하네 
+    $sql_stmt = "select * from Attendance_status where date = \"$argObj->date\"";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
