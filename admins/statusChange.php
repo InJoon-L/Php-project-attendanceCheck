@@ -9,12 +9,12 @@ $req = json_decode(file_get_contents('php://input'));
 function changeStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
     // where 수정할 것
-    $sql_stmt = "update attendance_status set status = \"$argObj->status\" 
-                where std_id = $argObj->std_id && $argObj->class_id";
-
+    $sql_stmt = "update attendance_status set status = \"{$argObj->status}\" 
+                where m_id = {$argObj->id}";
+    print_r($sql_stmt);
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
-        return  $result = 'update success';
+        return  $result;
     }
 
     $dbConn->close();

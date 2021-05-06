@@ -9,14 +9,14 @@ $req = json_decode(file_get_contents('php://input'));
 function checkLoginRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
 
-    $sql_stmt = "select * from member where email = '$argObj->email'";
+    $sql_stmt = "select * from member where email = \"{$argObj->email}\"";
 
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
-        $result->fetch_all();
-        // print_r($result);
-        if(password_verify($argObj->password, $result[0])) {
-            return $result;
+        $fetchResult = $result->fetch_assoc();
+        // print_r($fetchResult);
+        if(password_verify($argObj->password, $fetchResult['m_password'])) {
+            return $fetchResult;
         }
     }
 

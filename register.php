@@ -12,11 +12,11 @@ function registerInsertRecordsFromTable($argObj) {
     $hashedPassword = password_hash($argObj->password, PASSWORD_DEFAULT);
 
     $sql_stmt = "INSERT INTO member (m_id, m_name, m_password, email, position, phone, class_id)
-    VALUES({$argObj->id}, \"{$argObj->name}\", \"{$hashedPassword}\", \"{$argObj->email}\", \"{$argObj->phone}\", {$argObj->class_id})";
-    // echo $sql_stmt;
+    VALUES({$argObj->id}, \"{$argObj->name}\", \"{$hashedPassword}\", \"{$argObj->email}\",\"{$argObj->position}\", \"{$argObj->phone}\", {$argObj->class_id})";
+    
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
-        return $result;
+        return $argObj;
     }
 
     $dbConn->close();
