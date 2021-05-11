@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ .'/api/connDB.php';
 require_once __DIR__ .'/api/res.php';
-
+require_once __DIR__ .'/token.php';
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {

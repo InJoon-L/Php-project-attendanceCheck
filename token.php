@@ -1,25 +1,26 @@
 <?php
-require_once('./vendor/autoload.php');
+require_once __DIR__ . '/vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 
 // 하는 중 미완성
-function setToken($id, $email) {
+function setToken($argArr) {
     $secret_key = "secret";
-    $issuer_claim = "server"; // this can be the servername
-    $audience_claim = $id;
+    $issuer_claim = "injoon"; // this can be the servername
+    $audience_claim = $argArr['m_id'];
     $issuedat_claim = time(); // issued at
-    $notbefore_claim = $issuedat_claim; //not before in seconds
+    // $notbefore_claim = $issuedat_claim; //not before in seconds
     $expire_claim = $issuedat_claim + 7200; // expire time in seconds
     $token = array(
         "iss" => $issuer_claim, // 토큰 발급자
         "aud" => $audience_claim, // 토큰 대상자
         "iat" => $issuedat_claim, // 토큰 발급된 시간
-        "nbf" => $notbefore_claim, //토큰 활성 날짜
+        // "nbf" => $notbefore_claim, //토큰 활성 날짜
         "exp" => $expire_claim, //토큰 만료시간
         "data" => array(
-            "id" => $id,
-            "email" => $email
+            "id" => $argArr['m_id'],
+            "email" => $argArr['email'],
+            "position" => $argArr['position']
         )
     );
 
@@ -27,9 +28,14 @@ function setToken($id, $email) {
     $result = array(
                 "message" => "Successful login.",
                 "jwt" => $jwt,
-                "email" => $email,
+                "id" => $argArr['m_id'],
+                "email" => $argArr['email'],
+                "class_id" => $argArr['class_id'],
+                "position" => $argArr['position'],
                 "expireAt" => $expire_claim
     );
+
+    echo json_encode($result);
 }
 
 function tokenCheck() {

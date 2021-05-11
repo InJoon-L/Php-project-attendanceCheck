@@ -14,20 +14,27 @@ function checkLoginRecordsFromTable($argObj) {
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();
         $fetchResult = $result->fetch_assoc();
-        // print_r($fetchResult);
+
+        $data = array(
+            "m_id" => $fetchResult['m_id'],
+            "email" => $argObj->$email,
+            "class_id" => $fetchResult['class_id'],
+            "position" => $fetchResult['position']
+        );
+
         if(password_verify($argObj->password, $fetchResult['m_password'])) {
-            return $fetchResult;
+            setToken($data);
         }
     }
 
-    $dbConn->close();
+    // $dbConn->close();
     return null;
 }
 
-$resData = checkLoginRecordsFromTable($req);
+checkLoginRecordsFromTable($req);
 
-$res = new Res(($resData != null ? true : false), $resData);
+// $res = new Res(($resData != null ? true : false), $resData);
 
-echo json_encode($res)
+// echo json_encode($res)
 
 ?>
