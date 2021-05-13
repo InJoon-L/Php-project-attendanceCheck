@@ -2,6 +2,7 @@
 require_once __DIR__ .'/api/connDB.php';
 require_once __DIR__ .'/api/res.php';
 require_once __DIR__ .'/token.php';
+
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
@@ -17,11 +18,14 @@ switch ($request) {
     case '/api/admins/search' :
         require __DIR__ . '/api/admins/search.php';
         break;
-    case '/api/qrcheck/qrcheck' :
-        require __DIR__ . '/api/QRCheck/qrCheck.php';
+    case '/api/qrcode/qrcheck' :
+        require __DIR__ . '/api/QRCode/qrCheck.php';
+        break;
+    case '/api/auth' :
+        require __DIR__ . '/api/auth.php';
         break;
     default:
-        echo "hello";
+        echo "똑바로 경로 입력하세요ㅡㅡ";
         http_response_code(404);
         break;
 }

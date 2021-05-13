@@ -6,7 +6,7 @@ $req = json_decode(file_get_contents('php://input'));
 function changeStatusRecordsFromTable($argObj) {
     $dbConn = makeDBConnection();
 
-    $sql_stmt = "update Attendance_status set status = \"{$argObj->status}\" 
+    $sql_stmt = "UPDATE Attendance_status SET status = \"{$argObj->status}\" 
                 where m_id = {$argObj->id}";
                 
     if ($result = $dbConn->query($sql_stmt)) {

@@ -14,7 +14,7 @@ function checkLoginRecordsFromTable($argObj) {
 
         $data = array(
             "m_id" => $fetchResult['m_id'],
-            "email" => $argObj->$email,
+            "email" => $argObj->email,
             "class_id" => $fetchResult['class_id'],
             "position" => $fetchResult['position']
         );
@@ -24,7 +24,7 @@ function checkLoginRecordsFromTable($argObj) {
         }
     }
 
-    // $dbConn->close();
+    $dbConn->close();
     return null;
 }
 
