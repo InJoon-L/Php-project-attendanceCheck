@@ -21,6 +21,7 @@ switch ($request) {
         require __DIR__ . '/api/QRCheck/qrCheck.php';
         break;
     default:
+        echo "hello";
         http_response_code(404);
         break;
 }

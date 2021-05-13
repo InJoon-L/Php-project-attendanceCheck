@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/api/vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 
@@ -35,7 +35,7 @@ function setToken($argArr) {
                 "expireAt" => $expire_claim
     );
 
-    echo json_encode($result);
+    return $result;
 }
 
 function tokenCheck() {

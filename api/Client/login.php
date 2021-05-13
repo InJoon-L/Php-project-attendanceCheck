@@ -1,7 +1,4 @@
 <?php
-// require_once('../connDB.php');
-// require_once('../res.php');
-
 // 입력 값을 JSON으로 decoding 실시 -> 객체 생성
 $req = json_decode(file_get_contents('php://input'));
 
@@ -23,7 +20,7 @@ function checkLoginRecordsFromTable($argObj) {
         );
 
         if(password_verify($argObj->password, $fetchResult['m_password'])) {
-            setToken($data);
+            return setToken($data);
         }
     }
 
@@ -31,10 +28,10 @@ function checkLoginRecordsFromTable($argObj) {
     return null;
 }
 
-checkLoginRecordsFromTable($req);
+$resData = checkLoginRecordsFromTable($req);
 
-// $res = new Res(($resData != null ? true : false), $resData);
+$res = new Res(($resData != null ? true : false), $resData);
 
-// echo json_encode($res)
+echo json_encode($res)
 
 ?>
