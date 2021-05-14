@@ -12,6 +12,9 @@ switch ($request) {
     case '/api/client/register' :
         require __DIR__ . '/api/Client/register.php';
         break;
+    case '/api/client/logout' :
+        require __DIR__ . '/api/Client/logout.php';
+        break;    
     case '/api/admins/statuschange' :
         require __DIR__ . '/api/admins/statusChange.php';
         break;    

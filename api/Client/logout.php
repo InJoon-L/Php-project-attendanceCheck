@@ -1,14 +1,21 @@
 <?php
 // 입력 값을 JSON으로 decoding 실시 -> 객체 생성
-$req = json_decode(file_get_contents('php://input'));
+$authHeader = $_SERVER['HTTP_AUTHORIZATION'];
 
 // DBMS 로그아웃 토큰반환 레코드 변경
-function logoutRecordsFromTable($argObj) {
+function logoutRecordsFromTable($authHeader) {
     $dbConn = makeDBConnection();
+    $jwt = tokenCheck($authHeader);
 
-    $sql_stmt = "update student set token = \"\" where std_id = $argObj->std_id";
-
+    if ($jwt['result'] == null) {
+        return null;
+    }
+    
+    $id = $jwt['id'];
+    $sql_stmt = "update member set token = \"\" where m_id = \"{$id}\"";
+  
     if ($result = $dbConn->query($sql_stmt)) {
+        
         $dbConn-> close();
         return $result;
     }
@@ -17,7 +24,7 @@ function logoutRecordsFromTable($argObj) {
     return null;
 }
 
-$resData = logoutRecordsFromTable($req);
+$resData = logoutRecordsFromTable($authHeader);
 
 $res = new Res(($resData != null ? true : false), $resData);
 

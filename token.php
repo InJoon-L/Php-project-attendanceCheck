@@ -7,7 +7,7 @@ use \Firebase\JWT\JWT;
 function setToken($argArr) {
     $secret_key = "secret";
     // $issuer_claim = "injoon"; // this can be the servername
-    $audience_claim = $argArr['m_id'];
+    $audience_claim = $argArr['id'];
     $issuedat_claim = time(); // issued at
     // $notbefore_claim = $issuedat_claim; //not before in seconds
     $expire_claim = $issuedat_claim + 7200; // expire time in seconds
@@ -18,28 +18,19 @@ function setToken($argArr) {
         // "nbf" => $notbefore_claim, //토큰 활성 날짜
         "exp" => $expire_claim, //토큰 만료시간
         "data" => array(
-            "id" => $argArr['m_id'],
-            "email" => $argArr['email'],
+            "id" => $argArr['id'],
             "position" => $argArr['position']
         )
     );
 
     $jwt = JWT::encode($token, $secret_key);
 
-    if(!storeToken($jwt, $argArr['m_id'])) {
+    if(!storeToken($jwt, $argArr['id'])) {
         echo "토큰 저장 실패";
         exit(-1);
     }
 
-    $result = array(
-                "jwt" => $jwt,
-                "id" => $argArr['m_id'],
-                "email" => $argArr['email'],
-                "class_id" => $argArr['class_id'],
-                "position" => $argArr['position']
-    );
-
-    return $result;
+    return $jwt;
 }
 
 // 토큰을 디비에 저장
@@ -63,33 +54,25 @@ function storeToken($jwt, $id) {
 function tokenCheck($authHeader) {
     $secret_key = "secret";
     $jwt = null;
-    
     $result = null;
     
     $arr = explode(" ", $authHeader);
-    
-    if($jwt){
+    $jwt = $arr[1];
 
+    if($jwt){
         try {
             $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
-    
-            // Access is granted. Add code of the operation here 
-            $who = $decoded->data->id;
-
-            if (true) {
-                $result = array(
-                    "message" => "Access granted:",
-                    "result" => true,
-                    "id" => $who
-                );
-            } else {
-                $result = array(
-                    "message" => "Access denied.",
-                    "result" => false
-                );
-            }
             
-    
+            // Access is granted. Add code of the operation here 
+            $id = $decoded->data->id;
+            $position = $decoded->data->position;
+            
+            $result = array(
+                "message" => "Access granted:",
+                "result" => true,
+                "id" => $id,
+                "position" => $position
+            );
         }catch (Exception $e){
             $result = array(
                 "message" => "Access denied.",
@@ -98,7 +81,6 @@ function tokenCheck($authHeader) {
             );
         }
     }
-
     return $result;
 }
 ?>
