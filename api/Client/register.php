@@ -8,8 +8,9 @@ function registerInsertRecordsFromTable($argObj) {
 
     $hashedPassword = password_hash($argObj->password, PASSWORD_DEFAULT);
 
-    $sql_stmt = "INSERT INTO member (m_id, m_name, m_password, email, position, phone, class_id)
-    VALUES({$argObj->id}, \"{$argObj->name}\", \"{$hashedPassword}\", \"{$argObj->email}\",\"{$argObj->position}\", \"{$argObj->phone}\", {$argObj->class_id})";
+    $sql_stmt = "INSERT INTO member (m_id, m_name, m_password, email, position, phone, class_name)
+    VALUES({$argObj->id}, \"{$argObj->name}\", \"{$hashedPassword}\", \"{$argObj->email}\",
+            \"{$argObj->position}\", \"{$argObj->phone}\", \"{$argObj->class_name}\")";
     
     if ($result = $dbConn->query($sql_stmt)) {
         $dbConn->close();

@@ -24,6 +24,9 @@ switch ($request) {
     case '/api/admins/search' :
         require __DIR__ . '/api/admins/search.php';
         break;
+    case '/api/users/search' :
+        require __DIR__ . '/api/users/search.php';
+        break;        
     case '/api/qrcode/qrcheck' :
         require __DIR__ . '/api/QRCode/qrCheck.php';
         break;

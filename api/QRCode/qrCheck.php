@@ -10,7 +10,7 @@ function QRCodeInsertRecordsFromTable($argObj) {
     $status = null;
     $startAMTime = "07:00:00";
     $endAMTime = "09:00:00";
-    $endTime = "17:50:00";
+    $endTime = "20:50:00";
 
     // 시간에 맞는 출석 알고리즘 필요
     // 오전 9시전까지 출석, 오전 9시 ~ 오후 5시 50분 지각, 오후 6시 50분 ~ 오후 7시 야자 출석, 오후 7시 50분 이후 퇴근
@@ -24,7 +24,7 @@ function QRCodeInsertRecordsFromTable($argObj) {
         $status = "지각";
     }
     
-    if ($argObj->attendance === "am_attendance") {
+    if ($argObj->attendance === "am_attendance" || $status == "지각") {
         $sql_stmt = "INSERT INTO Attendance_status (date, {$argObj->attendance}, status, m_id, m_name)
         VALUES(\"{$date}\", \"{$time}\", \"{$status}\", {$argObj->id}, \"{$argObj->name}\")";
     

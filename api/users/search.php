@@ -1,7 +1,4 @@
 <?php
-require_once('../connDB.php');
-require_once('../res.php');
-
 // 입력 값을 JSON으로 decoding 실시 -> 객체 생성
 $req = json_decode(file_get_contents('php://input'));
 

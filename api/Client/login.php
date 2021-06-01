@@ -15,9 +15,10 @@ function checkLoginRecordsFromTable($argObj) {
 
         $data = array(
             "id" => $fetchResult['m_id'],
+            "name" => $fetchResult['m_name'],
             "position" => $fetchResult['position'],
             "email" => $argObj->email,
-            "class_id" => $fetchResult['class_id']
+            "class_name" => $fetchResult['class_name']
         );
 
         if(password_verify($argObj->password, $fetchResult['m_password'])) {
