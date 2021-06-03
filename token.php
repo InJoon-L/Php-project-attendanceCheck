@@ -10,7 +10,7 @@ function setToken($argArr) {
     $audience_claim = $argArr['id'];
     $issuedat_claim = time(); // issued at
     // $notbefore_claim = $issuedat_claim; //not before in seconds
-    $expire_claim = $issuedat_claim + 7200; // expire time in seconds
+    $expire_claim = $issuedat_claim + 36000000; // expire time in seconds
     $token = array(
         // "iss" => $issuer_claim, // 토큰 발급자
         "aud" => $audience_claim, // 토큰 대상자

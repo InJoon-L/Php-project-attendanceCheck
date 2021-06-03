@@ -12,6 +12,11 @@ function makeDBConnection()
         exit(-1); // 시스템 종료
     }
 
+    // change character set to utf8
+    if (!$db_conn -> set_charset("utf8")) {
+        echo "Failed to set charset utf8";
+        exit(-1); // 시스템 종료
+    }
     return $db_conn;
 }
 ?>
