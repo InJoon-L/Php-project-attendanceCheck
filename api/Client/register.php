@@ -26,6 +26,6 @@ $resData = registerInsertRecordsFromTable($req);
 
 $res = new Res(($resData != null ? true : false), $resData);
 
-echo json_encode($res)
+echo json_encode($res, JSON_UNESCAPED_UNICODE)
 
 ?>
