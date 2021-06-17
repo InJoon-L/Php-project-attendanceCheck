@@ -24,7 +24,7 @@ function QRCodeInsertRecordsFromTable($argObj) {
         $status = "지각";
     }
     
-    if ($argObj->attendance === "am_attendance" || $status == "지각") {
+    if ($argObj->attendance === "am_attendance") {
         $sql_stmt = "INSERT INTO Attendance_status (date, {$argObj->attendance}, status, m_id, m_name)
         VALUES(\"{$date}\", \"{$time}\", \"{$status}\", {$argObj->id}, \"{$argObj->name}\")";
     
